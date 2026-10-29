@@ -1,0 +1,23 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>i understand, but…</title>
+<meta name="robots" content="noindex">
+<p style="font:16px system-ui;margin:40px">Moving your progress to iunderstandbut.com…</p>
+<script>
+// The app moved from ahmadfardaei.github.io/parlo to iunderstandbut.com. Browser storage is per site,
+// so this page (on the old site) reads the app's saved progress and sends it to the new address.
+(function () {
+  var NEW = "https://iunderstandbut.com/italian/#/moved/", d = {}, has = false;
+  try {
+    for (var i = 0; i < localStorage.length; i++) {
+      var k = localStorage.key(i);
+      if (k === "parlo.moved") continue;
+      if (k.indexOf("parlo.") === 0 || k.indexOf("sb-") === 0) { d[k] = localStorage.getItem(k); if (k.indexOf("parlo.") === 0) has = true; }
+    }
+  } catch (e) {}
+  if (!has) return location.replace(NEW + "none");
+  var bytes = new TextEncoder().encode(JSON.stringify(d)), bin = "";
+  for (var j = 0; j < bytes.length; j += 8192) bin += String.fromCharCode.apply(null, bytes.subarray(j, j + 8192));
+  location.replace(NEW + btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""));
+})();
+</script>
